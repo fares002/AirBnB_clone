@@ -26,15 +26,14 @@ class TestBasemodel(unittest.TestCase):
     def test_to_dict(self):
         my_model = BaseModel()
 
-        my_modeldict = my_model.to_dict()
+        modl = my_model.to_dict()
 
-        self.assertIsInstance(my_modeldict, dict)
+        self.assertIsInstance(modl, dict)
 
-        self.assertEqual(my_modeldict["__class__"], 'BaseModel')
-        self.assertEqual(my_modeldict['id'], my_model.id)
-        self.assertEqual(my_modeldict['created_at'], my_model.created_at.isoformat())
-        self.assertEqual(my_modeldict["updated_at"], my_model.updated_at.isoformat())
-
+        self.assertEqual(modl["__class__"], 'BaseModel')
+        self.assertEqual(modl['id'], my_model.id)
+        self.assertEqual(modl['created_at'], my_model.created_at.isoformat())
+        self.assertEqual(modl["updated_at"], my_model.updated_at.isoformat())
 
     def test_str(self):
         my_model = BaseModel()
@@ -44,7 +43,6 @@ class TestBasemodel(unittest.TestCase):
         self.assertIn(my_model.id, str(my_model))
 
         self.assertIn(str(my_model.__dict__), str(my_model))
-
 
 
 if __name__ == "__main__":
