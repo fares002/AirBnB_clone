@@ -1,109 +1,84 @@
 #!/usr/bin/python3
-"""
-module
-"""
+
+
 import uuid
 from datetime import datetime
-import models
+
 
 class BaseModel:
+    """Parent class for AirBnB clone project
+    Methods:
+        __init__(self, *args, **kwargs)
+        __str__(self)
+        __save(self)
+        __repr__(self)
+        to_dict(self)
     """
-    Base class for other classes
-
-    Attributes:
-    id (str): A unique identifier for the instance
-    created_at (datetime): Timestamp for instance creation
-    updated_at (datetime): Timestamp for instance update
-    """     
 
     def __init__(self, *args, **kwargs):
-<<<<<<< HEAD
-        """
-        Initializes new instance of the BaseModel class
-        Args:
-            *args: Variables length argument list (unused)
-            **kwargs: Arbitrary keyword arguments to create the instance
-        """
-
         time_format = "%Y-%m-%dT%H:%M:%S.%f"
 
-=======
-        time = "%Y-%m-%dT%H:%M:%S.%f"
->>>>>>> 281e15e5d5aa3ae94c715583453a3205c97157ff
         if kwargs:
             for key, value in kwargs.items():
                 if key == "__class__":
                     continue
                 elif key == "created_at" or key == "updated_at":
-                    setattr(self, key, datetime.strptime(value, time))
+                    setattr(self, key, datetime.strptime
+                            (kwargs['created_at'], time_format))
                 else:
                     setattr(self, key, value)
         else:
             self.id = str(uuid.uuid4())
-
             self.created_at = datetime.utcnow()
             self.updated_at = datetime.utcnow()
-<<<<<<< HEAD
-
-=======
-        
->>>>>>> 281e15e5d5aa3ae94c715583453a3205c97157ff
-        models.storage.new(self)
 
     def save(self):
         """
-
+        Instance method to:
+        - update current datetime
+        - invoke save() function &
+        - save to serialized file
         """
+
         self.updated_at = datetime.utcnow()
-        models.storage.save()
 
     def to_dict(self):
         """
-
+        Return dictionary of BaseModel with string formats of times
         """
-<<<<<<< HEAD
+
         inst_dict = self.__dict__.copy()
         inst_dict["__class__"] = self.__class__.__name__
         inst_dict["created_at"] = self.created_at.isoformat()
-        inst_dict["updated_att"] = self.created_at.isoformat()
-        
+        inst_dict["updated_att"] = self.updated_at.isoformat()
+
         return inst_dict
 
     def __str__(self):
         """
-        _summary_
+        Return class name, id, and the dictionary
         """
 
         class_name = self.__class__.__name__
         return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
-    
-    
-    
-    
-=======
-        sdict = self.__dict__.copy()
-        sdict["__class__"] = self.__class__.__name__
-        sdict["created_at"] = self.created_at.isoformat()
-        sdict["updated_at"] = self.updated_at.isoformat()
 
-        return sdict
-
-    def __str__(self):
-        """
-
-        """
-        classs = self.__class__.__name__
-        return "[{}] ({}) {}".format(classs, self.id, self.__dict__)
-
-
->>>>>>> 281e15e5d5aa3ae94c715583453a3205c97157ff
 if __name__ == "__main__":
     my_model = BaseModel()
-    my_model.name = "My First Model"
+    my_model.name = "My_First_Model"
     my_model.my_number = 89
+    print(my_model.id)
     print(my_model)
-    my_model.save()
-    print(my_model)
+    print(type(my_model.created_at))
+    print("--")
     my_model_json = my_model.to_dict()
     print(my_model_json)
     print("JSON of my_model:")
+    for key in my_model_json.keys():
+        print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
+    print("--")
+    my_new_model = BaseModel(**my_model_json)
+    print(my_new_model.id)
+    print(my_new_model)
+    print(type(my_new_model.created_at))
+    print("--")
+    print(my_model is my_new_model)
