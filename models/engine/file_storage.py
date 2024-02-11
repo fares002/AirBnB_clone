@@ -112,7 +112,7 @@ class FileStorage:
                     objd = json.load(file)
 
                     for key, value in objd.items():
-                        class_name, obj_id = key.split(".")
+                        class_name, obj_id = key.split('.')
 
                         cls = eval(class_name)
 
