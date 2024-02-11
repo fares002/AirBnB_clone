@@ -7,8 +7,29 @@ from datetime import datetime
 import models
 
 class BaseModel:
+    """
+    Base class for other classes
+
+    Attributes:
+    id (str): A unique identifier for the instance
+    created_at (datetime): Timestamp for instance creation
+    updated_at (datetime): Timestamp for instance update
+    """     
+
     def __init__(self, *args, **kwargs):
+<<<<<<< HEAD
+        """
+        Initializes new instance of the BaseModel class
+        Args:
+            *args: Variables length argument list (unused)
+            **kwargs: Arbitrary keyword arguments to create the instance
+        """
+
+        time_format = "%Y-%m-%dT%H:%M:%S.%f"
+
+=======
         time = "%Y-%m-%dT%H:%M:%S.%f"
+>>>>>>> 281e15e5d5aa3ae94c715583453a3205c97157ff
         if kwargs:
             for key, value in kwargs.items():
                 if key == "__class__":
@@ -22,7 +43,11 @@ class BaseModel:
 
             self.created_at = datetime.utcnow()
             self.updated_at = datetime.utcnow()
+<<<<<<< HEAD
+
+=======
         
+>>>>>>> 281e15e5d5aa3ae94c715583453a3205c97157ff
         models.storage.new(self)
 
     def save(self):
@@ -36,6 +61,26 @@ class BaseModel:
         """
 
         """
+<<<<<<< HEAD
+        inst_dict = self.__dict__.copy()
+        inst_dict["__class__"] = self.__class__.__name__
+        inst_dict["created_at"] = self.created_at.isoformat()
+        inst_dict["updated_att"] = self.created_at.isoformat()
+        
+        return inst_dict
+
+    def __str__(self):
+        """
+        _summary_
+        """
+
+        class_name = self.__class__.__name__
+        return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
+    
+    
+    
+    
+=======
         sdict = self.__dict__.copy()
         sdict["__class__"] = self.__class__.__name__
         sdict["created_at"] = self.created_at.isoformat()
@@ -51,6 +96,7 @@ class BaseModel:
         return "[{}] ({}) {}".format(classs, self.id, self.__dict__)
 
 
+>>>>>>> 281e15e5d5aa3ae94c715583453a3205c97157ff
 if __name__ == "__main__":
     my_model = BaseModel()
     my_model.name = "My First Model"
