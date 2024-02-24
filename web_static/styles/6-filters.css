@@ -74,4 +74,5 @@ li {
 .locations:hover .popover,
 .amenities:hover .popover {
     display: block;
+    margin-top: 15px;
 }
